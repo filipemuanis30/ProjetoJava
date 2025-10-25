@@ -1,0 +1,19 @@
+        // Atividade 2
+        import java.util.Arrays;
+
+public class AtividadesArrays {
+    public static void main(String[] args) {
+
+        String[] nomes = {"Ana", "Bruno", "Carlos"};
+
+        System.out.println("Atividade 2:");
+        System.out.println("Primeiro nome: " + nomes[0]);
+        System.out.println("Último nome: " + nomes[nomes.length - 1]);
+
+        System.out.println("Todos os nomes:");
+        for (String nome : nomes) {
+            System.out.println(nome);
+        }
+        System.out.println();
+    }
+}

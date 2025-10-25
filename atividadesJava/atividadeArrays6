@@ -1,0 +1,13 @@
+        // Atividade 6
+        import java.util.Arrays;
+
+public class AtividadesArrays {
+    public static void main(String[] args) {
+        int[] preenchido = new int[5];
+        Arrays.fill(preenchido, 10);
+
+        System.out.println("Atividade 6:");
+        System.out.println("Array preenchido: " + Arrays.toString(preenchido));
+        System.out.println();
+    }
+}

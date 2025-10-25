@@ -1,0 +1,198 @@
+public class TestePolimorfismo {
+
+    // Classe base Objeto
+    static class Objeto {
+        private String nome;
+        private double peso;
+        private String cor;
+        private String material;
+        private double valor;
+        private boolean emUso;
+
+        public Objeto() {}
+
+        public String getNome() { return nome; }
+        public void setNome(String nome) { this.nome = nome; }
+
+        public double getPeso() { return peso; }
+        public void setPeso(double peso) { this.peso = peso; }
+
+        public String getCor() { return cor; }
+        public void setCor(String cor) { this.cor = cor; }
+
+        public String getMaterial() { return material; }
+        public void setMaterial(String material) { this.material = material; }
+
+        public double getValor() { return valor; }
+        public void setValor(double valor) { this.valor = valor; }
+
+        public boolean isEmUso() { return emUso; }
+        public void setEmUso(boolean emUso) { this.emUso = emUso; }
+
+        public void acao() {
+            System.out.println("Este objeto está sendo utilizado.");
+        }
+
+        public void descricao() {
+            System.out.println("Objeto: " + nome + ", peso: " + peso + "kg, cor: " + cor +
+                ", material: " + material + ", valor: R$" + valor + ", em uso: " + emUso);
+        }
+    }
+
+    // Subclasse Smartphone
+    static class Smartphone extends Objeto {
+        private String sistemaOperacional;
+        private int capacidadeBateria;
+
+        public Smartphone() {}
+
+        public String getSistemaOperacional() { return sistemaOperacional; }
+        public void setSistemaOperacional(String sistemaOperacional) { this.sistemaOperacional = sistemaOperacional; }
+
+        public int getCapacidadeBateria() { return capacidadeBateria; }
+        public void setCapacidadeBateria(int capacidadeBateria) { this.capacidadeBateria = capacidadeBateria; }
+
+        @Override
+        public void acao() {
+            System.out.println(getNome() + " está fazendo uma chamada telefônica.");
+        }
+
+        @Override
+        public void descricao() {
+            System.out.println("Smartphone: " + getNome() + ", SO: " + sistemaOperacional + ", bateria: " +
+                capacidadeBateria + "mAh, cor: " + getCor() + ", valor: R$" + getValor());
+        }
+
+        public void tirarFoto() {
+            System.out.println(getNome() + " está tirando uma foto.");
+        }
+
+        public void instalarApp(String app) {
+            System.out.println("Instalando o app '" + app + "' no " + getNome() + ".");
+        }
+    }
+
+    // Subclasse Notebook
+    static class Notebook extends Objeto {
+        private String processador;
+        private int memoriaRAM;
+
+        public Notebook() {}
+
+        public String getProcessador() { return processador; }
+        public void setProcessador(String processador) { this.processador = processador; }
+
+        public int getMemoriaRAM() { return memoriaRAM; }
+        public void setMemoriaRAM(int memoriaRAM) { this.memoriaRAM = memoriaRAM; }
+
+        @Override
+        public void acao() {
+            System.out.println(getNome() + " está executando um programa.");
+        }
+
+        @Override
+        public void descricao() {
+            System.out.println("Notebook: " + getNome() + ", Processador: " + processador + ", RAM: " + memoriaRAM +
+                "GB, cor: " + getCor() + ", valor: R$" + getValor());
+        }
+
+        public void abrirAplicativo(String app) {
+            System.out.println(getNome() + " abriu o aplicativo " + app + ".");
+        }
+
+        public void salvarDocumento(String nomeDoc) {
+            System.out.println(getNome() + " salvou o documento '" + nomeDoc + "'.");
+        }
+    }
+
+    // Subclasse SmartTV
+    static class SmartTV extends Objeto {
+        private int polegadas;
+        private boolean suporte4K;
+
+        public SmartTV() {}
+
+        public int getPolegadas() { return polegadas; }
+        public void setPolegadas(int polegadas) { this.polegadas = polegadas; }
+
+        public boolean isSuporte4K() { return suporte4K; }
+        public void setSuporte4K(boolean suporte4K) { this.suporte4K = suporte4K; }
+
+        @Override
+        public void acao() {
+            System.out.println(getNome() + " está transmitindo um vídeo.");
+        }
+
+        @Override
+        public void descricao() {
+            System.out.println("SmartTV: " + getNome() + ", tamanho: " + polegadas + "\" " + 
+                (suporte4K ? "(4K)" : "(HD)")+ ", cor: " + getCor() + ", valor: R$" + getValor());
+        }
+
+        public void mudarCanal(int canal) {
+            System.out.println(getNome() + " mudou para o canal " + canal + ".");
+        }
+
+        public void ajustarVolume(int volume) {
+            System.out.println(getNome() + " ajustou o volume para " + volume + ".");
+        }
+    }
+
+
+    // main para rodar tudo
+    public static void main(String[] args) {
+        Smartphone sp = new Smartphone();
+        sp.setNome("Galaxy S21");
+        sp.setPeso(0.169);
+        sp.setCor("Preto");
+        sp.setMaterial("Alumínio e vidro");
+        sp.setValor(4500.00);
+        sp.setEmUso(true);
+        sp.setSistemaOperacional("Android");
+        sp.setCapacidadeBateria(4000);
+
+        Notebook nb = new Notebook();
+        nb.setNome("MacBook Pro");
+        nb.setPeso(1.4);
+        nb.setCor("Cinza espacial");
+        nb.setMaterial("Alumínio");
+        nb.setValor(12000.00);
+        nb.setEmUso(false);
+        nb.setProcessador("M1");
+        nb.setMemoriaRAM(16);
+
+        SmartTV tv = new SmartTV();
+        tv.setNome("Samsung QLED");
+        tv.setPeso(8.0);
+        tv.setCor("Preto");
+        tv.setMaterial("Plástico");
+        tv.setValor(3500.00);
+        tv.setEmUso(true);
+        tv.setPolegadas(55);
+        tv.setSuporte4K(true);
+
+        Objeto[] objetos = {sp, nb, tv};
+
+        for (Objeto obj : objetos) {
+            obj.descricao();
+            obj.acao();
+            System.out.println();
+
+            if (obj instanceof Smartphone) {
+                Smartphone phone = (Smartphone) obj;
+                phone.tirarFoto();
+                phone.instalarApp("WhatsApp");
+            } else if (obj instanceof Notebook) {
+                Notebook notebook = (Notebook) obj;
+                notebook.abrirAplicativo("Word");
+                notebook.salvarDocumento("Relatório.docx");
+            } else if (obj instanceof SmartTV) {
+                SmartTV smartTV = (SmartTV) obj;
+                smartTV.mudarCanal(12);
+                smartTV.ajustarVolume(25);
+            }
+
+            System.out.println("------------\n");
+        }
+    }
+}

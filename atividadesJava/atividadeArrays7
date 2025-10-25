@@ -1,0 +1,15 @@
+        // Atividade 7
+        import java.util.Arrays;
+
+public class AtividadesArrays {
+    public static void main(String[] args) {
+        int[] original = {3, 6, 9, 12, 15};
+        int[] copiaCompleta = Arrays.copyOf(original, original.length);
+        int[] copiaParcial = Arrays.copyOfRange(original, 1, 4); // posições 1 até 3
+
+        System.out.println("Atividade 7:");
+        System.out.println("Cópia completa: " + Arrays.toString(copiaCompleta));
+        System.out.println("Cópia parcial: " + Arrays.toString(copiaParcial));
+        System.out.println();
+    }
+}

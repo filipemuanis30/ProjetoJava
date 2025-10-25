@@ -1,0 +1,16 @@
+        // Atividade 8
+        import java.util.Arrays;
+
+public class AtividadesArrays {
+    public static void main(String[] args) {
+        int[] a = {1, 2, 3};
+        int[] b = {1, 2, 3};
+
+        System.out.println("Atividade 8:");
+        System.out.println("Arrays iguais? " + Arrays.equals(a, b));
+
+        b[2] = 4; // alterando um valor
+        System.out.println("Após alteração em b:");
+        System.out.println("Arrays iguais? " + Arrays.equals(a, b));
+    }
+}

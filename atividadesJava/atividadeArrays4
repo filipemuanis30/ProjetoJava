@@ -1,0 +1,16 @@
+        // Atividade 4
+        import java.util.Arrays;
+
+public class AtividadesArrays {
+    public static void main(String[] args) {
+        int[] numeros2 = {5, 2, 8, 1, 9};
+
+        System.out.println("Atividade 4:");
+        System.out.println("Array original: " + Arrays.toString(numeros2));
+
+        Arrays.sort(numeros2);
+
+        System.out.println("Array ordenado: " + Arrays.toString(numeros2));
+        System.out.println();
+    }
+}

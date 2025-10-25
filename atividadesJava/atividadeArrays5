@@ -1,0 +1,13 @@
+        // Atividade 5
+        import java.util.Arrays;
+
+public class AtividadesArrays {
+    public static void main(String[] args) {
+
+        System.out.println("Atividade 5:");
+        int indice = Arrays.binarySearch(numeros2, 8);
+        System.out.println("Índice do número 8: " + indice);
+        System.out.println();
+
+    }
+}
