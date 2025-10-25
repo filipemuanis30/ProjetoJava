@@ -1,0 +1,232 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+// =========================================================
+// CLASSE ABSTRATA BASE
+// =========================================================
+abstract class Funcionario {
+    private String nome;
+
+    public Funcionario(String nome) {
+        this.nome = nome;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    // Método abstrato que cada subclasse deve implementar
+    public abstract double calcularPagamento();
+
+    // Método para exibir o pagamento individual (Polimorfismo)
+    public void exibirPagamento() {
+        double pagamento = calcularPagamento();
+        System.out.printf("--- %s ---\n", nome);
+        System.out.printf("Pagamento: R$ %.2f\n", pagamento);
+    }
+}
+
+// =========================================================
+// CLASSE FILHA: HORISTA
+// =========================================================
+class Horista extends Funcionario {
+    private static final int HORAS_LIMITE = 160;
+    private double valorHora;
+    private int horasTrabalhadas;
+
+    public Horista(String nome, double valorHora, int horasTrabalhadas) {
+        super(nome);
+        this.valorHora = valorHora;
+        this.horasTrabalhadas = horasTrabalhadas;
+    }
+
+    @Override
+    public double calcularPagamento() {
+        double pagamentoBase = horasTrabalhadas * valorHora;
+        double pagamentoTotal = pagamentoBase;
+
+        // Regra do bônus de 10%
+        if (horasTrabalhadas > HORAS_LIMITE) {
+            double bonus = pagamentoBase * 0.10;
+            pagamentoTotal += bonus;
+            System.out.printf("(Bônus Horas Extras: R$ %.2f, Horas: %d)\n", bonus, horasTrabalhadas);
+        } else {
+             System.out.printf("(Valor Hora: R$ %.2f, Horas: %d)\n", valorHora, horasTrabalhadas);
+        }
+
+        return pagamentoTotal;
+    }
+}
+
+// =========================================================
+// CLASSE FILHA: COMISSIONADO
+// =========================================================
+class Comissionado extends Funcionario {
+    private double totalVendas;
+    private double taxaComissao; // Valor decimal (ex: 0.10)
+
+    public Comissionado(String nome, double totalVendas, double taxaComissao) {
+        super(nome);
+        this.totalVendas = totalVendas;
+        this.taxaComissao = taxaComissao;
+    }
+
+    @Override
+    public double calcularPagamento() {
+        double comissao = totalVendas * taxaComissao;
+        System.out.printf("(Total Vendas: R$ %.2f, Taxa: %.0f%%)\n", totalVendas, taxaComissao * 100);
+        return comissao;
+    }
+}
+
+// =========================================================
+// CLASSE FILHA: ASSALARIADO
+// =========================================================
+class Assalariado extends Funcionario {
+    private double salarioFixo;
+    private double bonusAdicional;
+
+    public Assalariado(String nome, double salarioFixo, double bonusAdicional) {
+        super(nome);
+        this.salarioFixo = salarioFixo;
+        this.bonusAdicional = bonusAdicional;
+    }
+
+    @Override
+    public double calcularPagamento() {
+        System.out.printf("(Salário Fixo: R$ %.2f, Bônus: R$ %.2f)\n", salarioFixo, bonusAdicional);
+        return salarioFixo + bonusAdicional;
+    }
+}
+
+// =========================================================
+// CLASSE PRINCIPAL: SISTEMA DE PAGAMENTO
+// =========================================================
+public class SistemaPagamento {
+
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        // Lista para armazenar todos os funcionários
+        List<Funcionario> funcionarios = new ArrayList<>();
+
+        int opcao = 0;
+        do {
+            System.out.println("\n--- Cadastro de Funcionários ---");
+            System.out.println("1 - Horista");
+            System.out.println("2 - Comissionado");
+            System.out.println("3 - Assalariado");
+            System.out.println("4 - Finalizar Cadastro e Processar Pagamentos");
+            System.out.print("Escolha o tipo de funcionário a cadastrar (ou 4): ");
+            
+            if (scanner.hasNextInt()) {
+                opcao = scanner.nextInt();
+                scanner.nextLine(); // Consumir a quebra de linha
+                
+                switch (opcao) {
+                    case 1:
+                        cadastrarHorista(funcionarios);
+                        break;
+                    case 2:
+                        cadastrarComissionado(funcionarios);
+                        break;
+                    case 3:
+                        cadastrarAssalariado(funcionarios);
+                        break;
+                    case 4:
+                        System.out.println("Finalizando cadastro...");
+                        break;
+                    default:
+                        System.out.println("Opção inválida. Tente novamente.");
+                }
+            } else {
+                System.out.println("Entrada inválida. Por favor, digite um número.");
+                scanner.nextLine(); // Limpar buffer
+                opcao = 0; // Tentar novamente
+            }
+
+        } while (opcao != 4);
+
+        if (!funcionarios.isEmpty()) {
+            processarPagamentos(funcionarios);
+        } else {
+            System.out.println("Nenhum funcionário cadastrado. Encerrando o sistema.");
+        }
+    }
+
+    // --- Métodos de Cadastro ---
+    
+    private static void cadastrarHorista(List<Funcionario> funcionarios) {
+        System.out.print("Nome do Horista: ");
+        String nome = scanner.nextLine();
+        
+        System.out.print("Valor da Hora: R$ ");
+        double valorHora = scanner.nextDouble();
+        
+        System.out.print("Horas Trabalhadas no Mês: ");
+        int horas = scanner.nextInt();
+        
+        funcionarios.add(new Horista(nome, valorHora, horas));
+        System.out.println("Horista " + nome + " cadastrado com sucesso.");
+    }
+
+    private static void cadastrarComissionado(List<Funcionario> funcionarios) {
+        System.out.print("Nome do Comissionado: ");
+        String nome = scanner.nextLine();
+        
+        System.out.print("Total de Vendas (R$): ");
+        double vendas = scanner.nextDouble();
+        
+        System.out.print("Taxa de Comissão (ex: 10 para 10%): ");
+        double taxaPorcento = scanner.nextDouble();
+        
+        funcionarios.add(new Comissionado(nome, vendas, taxaPorcento / 100.0)); // Converte para decimal
+        System.out.println("Comissionado " + nome + " cadastrado com sucesso.");
+    }
+
+    private static void cadastrarAssalariado(List<Funcionario> funcionarios) {
+        System.out.print("Nome do Assalariado: ");
+        String nome = scanner.nextLine();
+        
+        System.out.print("Salário Fixo Mensal (R$): ");
+        double salarioFixo = scanner.nextDouble();
+        
+        System.out.print("Bônus Adicional (R$): ");
+        double bonus = scanner.nextDouble();
+        
+        funcionarios.add(new Assalariado(nome, salarioFixo, bonus));
+        System.out.println("Assalariado " + nome + " cadastrado com sucesso.");
+    }
+
+    // --- Métodos de Processamento ---
+
+    private static void processarPagamentos(List<Funcionario> funcionarios) {
+        double totalPago = 0;
+        double maiorPagamento = 0;
+        String nomeMaiorPagamento = "";
+
+        System.out.println("\n=============================================");
+        System.out.println("        PROCESSAMENTO DE PAGAMENTOS          ");
+        System.out.println("=============================================");
+
+        // Exibir pagamento individual e calcular o total
+        for (Funcionario f : funcionarios) {
+            double pagamento = f.calcularPagamento(); // Cálculo Polimórfico (chama o método correto)
+            f.exibirPagamento();
+            
+            totalPago += pagamento;
+
+            // Determinar o maior pagamento
+            if (pagamento > maiorPagamento) {
+                maiorPagamento = pagamento;
+                nomeMaiorPagamento = f.getNome();
+            }
+        }
+
+        System.out.println("\n=============================================");
+        System.out.printf("TOTAL PAGO PELA EMPRESA: R$ %.2f\n", totalPago);
+        System.out.printf("FUNCIONÁRIO COM MAIOR PAGAMENTO: %s (R$ %.2f)\n", nomeMaiorPagamento, maiorPagamento);
+        System.out.println("=============================================");
+    }
+}
