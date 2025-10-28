@@ -1,0 +1,158 @@
+// Classe abstrata Carro
+abstract class Carro {
+    public abstract void ligar();
+    public abstract void acelerar();
+    public abstract void frear();
+    public abstract void buzinar();
+    public abstract void desligar();
+}
+
+// Classe concreta Toyota
+class Toyota extends Carro {
+    @Override
+    public void ligar() {
+        System.out.println("Toyota: Ligando o carro com botão Start/Stop.");
+    }
+
+    @Override
+    public void acelerar() {
+        System.out.println("Toyota: Acelerando suavemente com motor híbrido.");
+    }
+
+    @Override
+    public void frear() {
+        System.out.println("Toyota: Freando com sistema regenerativo.");
+    }
+
+    @Override
+    public void buzinar() {
+        System.out.println("Toyota: Buzina eletrônica bip bip!");
+    }
+
+    @Override
+    public void desligar() {
+        System.out.println("Toyota: Desligando automaticamente ao estacionar.");
+    }
+}
+
+// Classe concreta Honda
+class Honda extends Carro {
+    @Override
+    public void ligar() {
+        System.out.println("Honda: Girando a chave para ligar o motor.");
+    }
+
+    @Override
+    public void acelerar() {
+        System.out.println("Honda: Acelerando com resposta esportiva.");
+    }
+
+    @Override
+    public void frear() {
+        System.out.println("Honda: Freando com ABS de alta eficiência.");
+    }
+
+    @Override
+    public void buzinar() {
+        System.out.println("Honda: Buzina tradicional honk honk!");
+    }
+
+    @Override
+    public void desligar() {
+        System.out.println("Honda: Motor desligado manualmente.");
+    }
+}
+
+// Classe concreta Ford
+class Ford extends Carro {
+    @Override
+    public void ligar() {
+        System.out.println("Ford: Ligando com comando de voz inteligente.");
+    }
+
+    @Override
+    public void acelerar() {
+        System.out.println("Ford: Acelerando com torque instantâneo do motor turbo.");
+    }
+
+    @Override
+    public void frear() {
+        System.out.println("Ford: Freando com assistência automática de emergência.");
+    }
+
+    @Override
+    public void buzinar() {
+        System.out.println("Ford: Buzina dupla forte e firme!");
+    }
+
+    @Override
+    public void desligar() {
+        System.out.println("Ford: Desligando via sistema automático de economia de energia.");
+    }
+}
+
+// Classe concreta Chevrolet
+class Chevrolet extends Carro {
+    @Override
+    public void ligar() {
+        System.out.println("Chevrolet: Ligando com sistema remoto via aplicativo.");
+    }
+
+    @Override
+    public void acelerar() {
+        System.out.println("Chevrolet: Acelerando com potência e estabilidade.");
+    }
+
+    @Override
+    public void frear() {
+        System.out.println("Chevrolet: Freando com controle de tração ativo.");
+    }
+
+    @Override
+    public void buzinar() {
+        System.out.println("Chevrolet: Buzina moderna com som digital.");
+    }
+
+    @Override
+    public void desligar() {
+        System.out.println("Chevrolet: Desligando após detectar ausência do motorista.");
+    }
+}
+
+// Classe principal Main
+public class Main {
+    public static void main(String[] args) {
+        Carro toyota = new Toyota();
+        Carro honda = new Honda();
+        Carro ford = new Ford();
+        Carro chevrolet = new Chevrolet();
+
+        System.out.println("=== Toyota ===");
+        toyota.ligar();
+        toyota.acelerar();
+        toyota.frear();
+        toyota.buzinar();
+        toyota.desligar();
+
+        System.out.println("\n=== Honda ===");
+        honda.ligar();
+        honda.acelerar();
+        honda.frear();
+        honda.buzinar();
+        honda.desligar();
+
+        System.out.println("\n=== Ford ===");
+        ford.ligar();
+        ford.acelerar();
+        ford.frear();
+        ford.buzinar();
+        ford.desligar();
+
+        System.out.println("\n=== Chevrolet ===");
+        chevrolet.ligar();
+        chevrolet.acelerar();
+        chevrolet.frear();
+        chevrolet.buzinar();
+        chevrolet.desligar();
+    }
+}
