@@ -16,7 +16,7 @@ abstract class Funcionario {
         return nome;
     }
 
-    // Método abstrato que cada subclasse deve implementar
+    // Método abstrato 
     public abstract double calcularPagamento();
 
     // Método para exibir o pagamento individual (Polimorfismo)
@@ -27,9 +27,9 @@ abstract class Funcionario {
     }
 }
 
-// =========================================================
+
 // CLASSE FILHA: HORISTA
-// =========================================================
+
 class Horista extends Funcionario {
     private static final int HORAS_LIMITE = 160;
     private double valorHora;
@@ -59,9 +59,9 @@ class Horista extends Funcionario {
     }
 }
 
-// =========================================================
+
 // CLASSE FILHA: COMISSIONADO
-// =========================================================
+
 class Comissionado extends Funcionario {
     private double totalVendas;
     private double taxaComissao; // Valor decimal (ex: 0.10)
@@ -80,9 +80,8 @@ class Comissionado extends Funcionario {
     }
 }
 
-// =========================================================
 // CLASSE FILHA: ASSALARIADO
-// =========================================================
+
 class Assalariado extends Funcionario {
     private double salarioFixo;
     private double bonusAdicional;
@@ -100,9 +99,9 @@ class Assalariado extends Funcionario {
     }
 }
 
-// =========================================================
+
 // CLASSE PRINCIPAL: SISTEMA DE PAGAMENTO
-// =========================================================
+
 public class SistemaPagamento {
 
     private static Scanner scanner = new Scanner(System.in);
@@ -122,7 +121,7 @@ public class SistemaPagamento {
             
             if (scanner.hasNextInt()) {
                 opcao = scanner.nextInt();
-                scanner.nextLine(); // Consumir a quebra de linha
+                scanner.nextLine(); 
                 
                 switch (opcao) {
                     case 1:
@@ -142,7 +141,7 @@ public class SistemaPagamento {
                 }
             } else {
                 System.out.println("Entrada inválida. Por favor, digite um número.");
-                scanner.nextLine(); // Limpar buffer
+                scanner.nextLine(); 
                 opcao = 0; // Tentar novamente
             }
 
@@ -181,7 +180,7 @@ public class SistemaPagamento {
         System.out.print("Taxa de Comissão (ex: 10 para 10%): ");
         double taxaPorcento = scanner.nextDouble();
         
-        funcionarios.add(new Comissionado(nome, vendas, taxaPorcento / 100.0)); // Converte para decimal
+        funcionarios.add(new Comissionado(nome, vendas, taxaPorcento / 100.0)); 
         System.out.println("Comissionado " + nome + " cadastrado com sucesso.");
     }
 
@@ -212,7 +211,7 @@ public class SistemaPagamento {
 
         // Exibir pagamento individual e calcular o total
         for (Funcionario f : funcionarios) {
-            double pagamento = f.calcularPagamento(); // Cálculo Polimórfico (chama o método correto)
+            double pagamento = f.calcularPagamento(); // Cálculo Polimórfico 
             f.exibirPagamento();
             
             totalPago += pagamento;
