@@ -1,0 +1,107 @@
+import java.util.Scanner;
+
+// Classe abstrata Produto
+abstract class Produto {
+    private String nome;
+    private double preco;
+
+    // Construtor
+    public Produto(String nome, double preco) {
+        this.nome = nome;
+        this.preco = preco;
+    }
+
+    // Getters e Setters
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
+    // Método abstrato
+    public abstract void exibirDetalhes();
+}
+
+// Classe concreta ProdutoEletronico
+class ProdutoEletronico extends Produto {
+    private int garantiaMeses;
+
+    // Construtor
+    public ProdutoEletronico(String nome, double preco, int garantiaMeses) {
+        super(nome, preco);
+        this.garantiaMeses = garantiaMeses;
+    }
+
+    // Getter e Setter
+    public int getGarantiaMeses() {
+        return garantiaMeses;
+    }
+
+    public void setGarantiaMeses(int garantiaMeses) {
+        this.garantiaMeses = garantiaMeses;
+    }
+
+    // Implementação do método abstrato
+    @Override
+    public void exibirDetalhes() {
+        System.out.println("Nome: " + getNome());
+        System.out.println("Preço: " + String.format("%.2f", getPreco()));
+        System.out.println("Garantia: " + garantiaMeses + " meses");
+    }
+}
+
+// Classe principal
+public class CadastroProdutos {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ProdutoEletronico[] produtos = new ProdutoEletronico[3];
+
+        System.out.println("=== CADASTRO DE PRODUTOS ELETRÔNICOS ===");
+
+        for (int i = 0; i < produtos.length; i++) {
+            System.out.println("\nProduto " + (i + 1) + ":");
+
+            System.out.print("Nome: ");
+            String nome = sc.nextLine();
+
+            double preco;
+            while (true) {
+                System.out.print("Preço: ");
+                preco = sc.nextDouble();
+                if (preco > 0) break;
+                System.out.println("⚠️ O preço deve ser positivo!");
+            }
+
+            int garantia;
+            while (true) {
+                System.out.print("Garantia (em meses): ");
+                garantia = sc.nextInt();
+                if (garantia > 0) break;
+                System.out.println("⚠️ A garantia deve ser positiva!");
+            }
+
+            sc.nextLine(); // limpar buffer
+
+            produtos[i] = new ProdutoEletronico(nome, preco, garantia);
+        }
+
+        System.out.println("\n=== PRODUTOS CADASTRADOS ===\n");
+        for (int i = 0; i < produtos.length; i++) {
+            System.out.println("Produto " + (i + 1) + ":");
+            produtos[i].exibirDetalhes();
+            System.out.println();
+        }
+
+        sc.close();
+    }
+}
