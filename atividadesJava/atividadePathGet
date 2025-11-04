@@ -1,0 +1,34 @@
+package com.exemplo.api.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api")
+public class CalculadoraController {
+
+    // Rota para SOMA
+    @GetMapping("/soma/{a}/{b}")
+    public String soma(@PathVariable int a, @PathVariable int b) {
+        int resultado = a + b;
+        return "A soma de " + a + " + " + b + " = " + resultado;
+    }
+
+    // Rota para SUBTRAÇÃO
+    @GetMapping("/subtracao/{a}/{b}")
+    public String subtracao(@PathVariable int a, @PathVariable int b) {
+        int resultado = a - b;
+        return "A subtração de " + a + " - " + b + " = " + resultado;
+    }
+
+    // Rota para VERIFICAR SE O NÚMERO É PAR OU ÍMPAR
+    @GetMapping("/verificanumeroparouimpar/{numero}")
+    public String verificaParOuImpar(@PathVariable int numero) {
+        if (numero % 2 == 0) {
+            return "O número " + numero + " é PAR.";
+        } else {
+            return "O número " + numero + " é ÍMPAR.";
+        }
+    }
+}
