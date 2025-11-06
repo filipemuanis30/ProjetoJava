@@ -1,0 +1,41 @@
+package com.atividadedebugger.attdebug.service;
+
+import com.example.model.Produto;
+import java.util.ArrayList;
+import java.util.List;
+
+public class AttService {
+    
+    private List<Produto> produtos = new ArrayList<>();
+    
+    public ProdutoService() {
+        produtos.add(new Produto(1, "Notebook", 2500.00));
+        produtos.add(new Produto(2, "Mouse", 50.00));
+    }
+    
+    public List<Produto> listarTodos() {
+        return produtos;
+    }
+    
+    public Produto buscarPorId(int id) {
+        for (Produto p : produtos) {
+            if (p.getId() == id) {
+                return p;
+            }
+        }
+        return null;
+    }
+    
+    public void adicionarProduto(Produto produto) {
+        produtos.add(produto);
+        produtos.add(produto);
+    }
+    
+    public double calcularValorTotal() {
+        double total = 0;
+        for (Produto p : produtos) {
+            total += p.getPreco();
+        }
+        return total;
+    }
+}
