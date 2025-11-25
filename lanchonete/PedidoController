@@ -1,0 +1,30 @@
+@RestController
+@RequestMapping("/pedidos")
+public class PedidoController {
+
+    @Autowired
+    private PedidoService service;
+
+    @Autowired
+    private PedidoRepository repository;
+
+    @PostMapping("/{clienteId}/{funcionarioId}")
+    public Pedido criar(
+            @PathVariable Long clienteId,
+            @PathVariable Long funcionarioId,
+            @RequestBody Pedido pedido) {
+
+        return service.criarPedido(pedido, clienteId, funcionarioId);
+    }
+
+    @GetMapping
+    public List<Pedido> listar() {
+        return repository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Pedido buscar(@PathVariable Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+    }
+}

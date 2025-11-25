@@ -1,0 +1,17 @@
+@RestController
+@RequestMapping("/clientes")
+public class ClienteController {
+
+    @Autowired
+    private ClienteRepository repository;
+
+    @PostMapping
+    public Cliente criar(@RequestBody Cliente cliente) {
+        return repository.save(cliente);
+    }
+
+    @GetMapping
+    public List<Cliente> listar() {
+        return repository.findAll();
+    }
+}

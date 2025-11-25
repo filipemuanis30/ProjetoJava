@@ -1,0 +1,17 @@
+@RestController
+@RequestMapping("/produtos")
+public class ProdutoController {
+
+    @Autowired
+    private ProdutoRepository repository;
+
+    @PostMapping
+    public Produto criar(@RequestBody Produto p) {
+        return repository.save(p);
+    }
+
+    @GetMapping
+    public List<Produto> listar() {
+        return repository.findAll();
+    }
+}

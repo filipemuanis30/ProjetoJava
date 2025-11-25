@@ -1,0 +1,13 @@
+@Entity
+public class Funcionario {
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String nome;
+    private String cargo;
+    private Double salario;
+
+    @OneToMany(mappedBy = "funcionario")
+    private List<Pedido> pedidos;
+}

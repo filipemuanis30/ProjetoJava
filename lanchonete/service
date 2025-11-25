@@ -1,0 +1,44 @@
+@Service
+public class PedidoService {
+
+    @Autowired
+    private PedidoRepository pedidoRepository;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    @Autowired
+    private FuncionarioRepository funcionarioRepository;
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
+
+    public Pedido criarPedido(Pedido pedido, Long clienteId, Long funcionarioId) {
+
+        Cliente cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+
+        Funcionario funcionario = funcionarioRepository.findById(funcionarioId)
+                .orElseThrow(() -> new RuntimeException("Funcionario não encontrado"));
+
+        pedido.setCliente(cliente);
+        pedido.setFuncionario(funcionario);
+        pedido.setDataPedido(LocalDateTime.now());
+
+        double total = 0;
+
+        for (ItemPedido item : pedido.getItens()) {
+            Produto produto = produtoRepository.findById(item.getProduto().getId())
+                    .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+            item.setPreco(produto.getPreco());
+            item.setPedido(pedido);
+
+            total += item.getPreco() * item.getQuantidade();
+        }
+
+        pedido.setValorTotal(total);
+
+        return pedidoRepository.save(pedido);
+    }
+}
